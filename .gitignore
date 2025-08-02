@@ -1,0 +1,95 @@
+# Large model files
+*.keras
+*.h5
+*.pkl
+*.model
+*.weights
+*.ckpt
+*.pb
+*.tflite
+*.onnx
+
+# Large datasets
+*.csv
+*.json
+*.txt
+data/
+datasets/
+raw_data/
+
+# Image files (keep sample images but ignore large collections)
+# image1.jpg
+# image2.jpg  
+# image3.jpg
+# image4.jpg
+images/
+img/
+photos/
+
+# Archives
+*.zip
+*.rar
+*.tar
+*.gz
+*.7z
+
+# Virtual environment
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+
+# Cache directories
+.cache/
+.pytest_cache/
+
+# Environment variables
+.env
+.env.local
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Large backup files
+*_backup.py
+*_old.py
+backup/
+
+# Node modules (if any)
+node_modules/
+
+# Large media files
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.wav
+*.mp3
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
