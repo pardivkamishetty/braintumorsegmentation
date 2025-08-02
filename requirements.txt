@@ -1,0 +1,23 @@
+# Brain Tumor Detection App Requirements
+# Core packages
+streamlit>=1.28.0
+streamlit-option-menu>=0.3.6
+
+# Image processing
+Pillow>=10.0.0
+
+# ML packages (let pip resolve compatible versions)
+tensorflow>=2.13.0
+numpy
+scikit-image
+
+# Database and authentication
+pymongo>=4.5.0
+pyrebase4>=4.7.1
+
+# Utilities
+python-dotenv>=1.0.0
+
+# Optional packages
+matplotlib>=3.7.0
+opencv-python>=4.8.0
