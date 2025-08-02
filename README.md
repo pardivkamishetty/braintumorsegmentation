@@ -180,11 +180,6 @@ The application includes comprehensive error handling:
 
 This project is for educational purposes. Please ensure compliance with medical software regulations in your jurisdiction.
 
-## 👨‍💻 Author
-
-**Pardiv Kamishetty**
-- GitHub: [@pardivkamishetty](https://github.com/pardivkamishetty)
-- Repository: [braintumorsegmentation](https://github.com/pardivkamishetty/braintumorsegmentation)
 
 ## 🤝 Contributing
 
