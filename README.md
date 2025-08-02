@@ -27,12 +27,22 @@ A sophisticated AI-powered web application for brain tumor detection and analysi
    cd braintumorsegmentation
    ```
 
-2. **Run the application**
+2. **Set up environment variables**
+   ```bash
+   # Copy the example environment file
+   copy .env.example .env
+   
+   # Edit .env file with your Firebase configuration
+   # You can use any text editor like notepad, VS Code, etc.
+   notepad .env
+   ```
+
+3. **Run the application**
    ```powershell
    .\start_app.bat
    ```
 
-3. **Access the app**
+4. **Access the app**
    - Open your browser and go to: `http://localhost:8501`
    - The app will be automatically available on your local network
 
@@ -66,8 +76,39 @@ Key packages automatically installed:
 - `streamlit>=1.28.0` - Web application framework
 - `tensorflow>=2.13.0` - Deep learning model
 - `pyrebase4>=4.7.1` - Firebase integration
+- `python-dotenv>=1.0.0` - Environment variable management
 - `opencv-python>=4.8.0` - Image processing
 - `scikit-image` - Advanced image analysis
+
+## ⚙️ Environment Configuration
+
+The application uses environment variables for secure configuration management:
+
+### Firebase Setup
+1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+2. Enable Authentication and Realtime Database
+3. Copy your Firebase configuration to the `.env` file
+
+### Required Environment Variables
+```env
+# Firebase Configuration
+FIREBASE_API_KEY=your_api_key
+FIREBASE_AUTH_DOMAIN=your_domain
+FIREBASE_DATABASE_URL=your_database_url
+FIREBASE_PROJECT_ID=your_project_id
+FIREBASE_STORAGE_BUCKET=your_storage_bucket
+FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+FIREBASE_APP_ID=your_app_id
+FIREBASE_MEASUREMENT_ID=your_measurement_id
+
+# Model Configuration
+MODEL_PATH=model.keras
+```
+
+### Security Notes
+- Never commit the `.env` file to version control
+- The `.env.example` file shows the required structure
+- All sensitive Firebase keys are kept in environment variables
 
 ## 🎯 Usage
 

@@ -29,9 +29,14 @@ except Exception as e:
 # Handle Firebase import
 try:
     import pyrebase
+    import os
+    from dotenv import load_dotenv
+    
+    # Load environment variables
+    load_dotenv()
 except Exception as e:
     st.error(f"⚠️ Firebase import error: {str(e)}")
-    st.error("Please ensure pyrebase4 is properly installed.")
+    st.error("Please ensure pyrebase4 and python-dotenv are properly installed.")
     st.stop()
 
 # Handle skimage import with safe fallback
@@ -47,17 +52,28 @@ except ImportError:
     def regionprops(labeled_image):
         return []
 
-# Firebase configuration
+# Firebase configuration from environment variables
 firebaseConfig = {
-        'apiKey': "AIzaSyAb3paJE7ms4A5iVeLtB8ufR3a_L7bO9yM",
-        'authDomain': "brain-tumor-app-c89af.firebaseapp.com",
-        'databaseURL': "https://brain-tumor-app-c89af-default-rtdb.asia-southeast1.firebasedatabase.app/", 
-        'projectId': "brain-tumor-app-c89af",
-        'storageBucket': "brain-tumor-app-c89af.appspot.com",
-        'messagingSenderId': "870748704368",
-        'appId': "1:870748704368:web:f30ec9e11d045d77122eb5",
-        'measurementId': "G-NKNPKZM5J7"
+    'apiKey': os.getenv('FIREBASE_API_KEY'),
+    'authDomain': os.getenv('FIREBASE_AUTH_DOMAIN'),
+    'databaseURL': os.getenv('FIREBASE_DATABASE_URL'), 
+    'projectId': os.getenv('FIREBASE_PROJECT_ID'),
+    'storageBucket': os.getenv('FIREBASE_STORAGE_BUCKET'),
+    'messagingSenderId': os.getenv('FIREBASE_MESSAGING_SENDER_ID'),
+    'appId': os.getenv('FIREBASE_APP_ID'),
+    'measurementId': os.getenv('FIREBASE_MEASUREMENT_ID')
 }
+
+# Validate Firebase configuration
+required_firebase_vars = ['FIREBASE_API_KEY', 'FIREBASE_AUTH_DOMAIN', 'FIREBASE_DATABASE_URL', 
+                         'FIREBASE_PROJECT_ID', 'FIREBASE_STORAGE_BUCKET', 'FIREBASE_MESSAGING_SENDER_ID',
+                         'FIREBASE_APP_ID', 'FIREBASE_MEASUREMENT_ID']
+
+missing_vars = [var for var in required_firebase_vars if not os.getenv(var)]
+if missing_vars:
+    st.error(f"⚠️ Missing Firebase environment variables: {', '.join(missing_vars)}")
+    st.error("Please check your .env file and ensure all Firebase variables are set.")
+    st.stop()
 
 # Initialize Firebase
 firebase = pyrebase.initialize_app(firebaseConfig)
@@ -285,7 +301,18 @@ def authentication():
 # Function to load the segmentation model
 @st.cache_resource
 def load_model():
-    model_path = r"C:\Users\Kpard\Downloads\model.keras"  # Path to your new model
+    # Try to get model path from environment variable, fallback to default
+    model_path = os.getenv('MODEL_PATH', 'model.keras')
+    
+    # If relative path, make it absolute from current directory
+    if not os.path.isabs(model_path):
+        model_path = os.path.join(os.getcwd(), model_path)
+    
+    if not os.path.exists(model_path):
+        st.error(f"⚠️ Model file not found at: {model_path}")
+        st.error("Please ensure the model.keras file exists or set the MODEL_PATH environment variable.")
+        st.stop()
+    
     model = tf.keras.models.load_model(model_path, compile=False)
     return model
 
